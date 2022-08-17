@@ -1,4 +1,4 @@
--- Coded in LUA on Synapse X, make for Tapping Simulator since remote events are easy to use. https://www.roblox.com/games/9498006165/CODE-SECRET-Tapping-Simulator
+-- Coded in LUA on Synapse X, made for Tapping Simulator since remote events are easy to use. https://www.roblox.com/games/9498006165/CODE-SECRET-Tapping-Simulator
 
 function DoTap()
     game:GetService("ReplicatedStorage").Events.Tap:FireServer()
