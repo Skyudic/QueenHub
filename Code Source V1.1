@@ -5,19 +5,23 @@ function DoTap()
                 wait()
 end
 
-function DoRebirth()
+local rebirthAmount;
+
+function DoRebirth(rebirthAmount)
     local args = {
-    [1] = 2000
+    [1] = rebirthAmount
     }
     
     game:GetService("ReplicatedStorage").Events.Rebirth:FireServer(unpack(args))
     wait(1)
 end
 
-function BuyEgg(eggType)
+local selectedEgg;
+
+function BuyEgg(selectedEgg)
     local args = {
         [1] = {},
-        [2] = eggType,
+        [2] = selectedEgg,
         [3] = 1
      }
     
@@ -59,6 +63,10 @@ Section:NewToggle("AutoTap", "Taps for you", function(state)
     end
 end)
 
+Section:NewDropdown("Rebirth Amount", "Pick the aoumt of rebirth you want to rebirth", {1, 5, 10, 20, 100, 500, 2000}, function(currentAmount)
+    rebirthAmount = currentAmount;
+end)
+
 Section:NewToggle("Auto Rebirth", "Rebirths for you", function(state)
     if state then
         getgenv().AutoRebirth = true
@@ -70,14 +78,18 @@ Section:NewToggle("Auto Rebirth", "Rebirths for you", function(state)
     end
 end)
 
-Section:NewToggle("Auto Buy Egg", "Buys Eggs For You", function(state)
+Section:NewDropdown("Egg Type", "Pick the type of egg you want auto egg to open", {"Starter", "Wood Egg", "Jungle Egg", "Forest Egg", "Bee Egg", "Swamp Egg", "Snow Egg", "Desert Egg", "Death Egg", "Beach Egg", "Mine Egg", "Cloud Egg", "Coral Egg", "Dark Egg"}, function(currentOption)
+    selectedEgg = currentOption;
+end)
+
+Section:NewToggle("Auto Egg", "Opens Eggs for you", function(state)
     if state then
-        getgenv().BuyEgg = true
-        while BuyEgg do
-            BuyEgg(eggType)
+        getgenv().BuyEggs = true
+        while BuyEggs do
+            BuyEgg(selectedEgg)
     end
     else
-        getgenv().BuyEgg = false
+        getgenv().BuyEggs = false
     end
 end)
 
