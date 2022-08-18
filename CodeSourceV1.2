@@ -20,7 +20,7 @@ local selectedEgg;
 
 function BuyEgg(selectedEgg)
     local args = {
-        [1] = {},
+        [1] = BlacklistedPets,
         [2] = selectedEgg,
         [3] = 1
      }
@@ -63,7 +63,7 @@ Section:NewToggle("AutoTap", "Taps for you", function(state)
     end
 end)
 
-Section:NewDropdown("Rebirth Amount", "Pick the aoumt of rebirth you want to rebirth", {1, 5, 10, 20, 100, 500, 2000}, function(currentAmount)
+Section:NewDropdown("Rebirth Amount", "Pick the aoumt of rebirth you want to rebirth", {1, 5, 10, 20, 100, 500, 2000, 4000, 8000}, function(currentAmount)
     rebirthAmount = currentAmount;
 end)
 
@@ -78,8 +78,97 @@ Section:NewToggle("Auto Rebirth", "Rebirths for you", function(state)
     end
 end)
 
+local Section = Tab:NewSection("Eggs")
+
 Section:NewDropdown("Egg Type", "Pick the type of egg you want auto egg to open", {"Starter", "Wood Egg", "Jungle Egg", "Forest Egg", "Bee Egg", "Swamp Egg", "Snow Egg", "Desert Egg", "Death Egg", "Beach Egg", "Mine Egg", "Cloud Egg", "Coral Egg", "Dark Egg"}, function(currentOption)
     selectedEgg = currentOption;
+end)
+
+Section:NewToggle("Blacklist Common", "Blacklists Common Tier Pets", function(state)
+    if state then
+        getgenv().BLC = true
+        if getgenv().BLUNC then
+            states = false
+        else
+            BlacklistedPets = {
+        [1] = "Cat",
+        [2] = "Puppy",
+        [3] = "Bunny",
+        [4] = "Horse",
+        [5] = "Squirrel",
+        [6] = "Giraffe",
+        [7] = "Mouse",
+        [8] = "Bee",
+        [9] = "Mushroom",
+        [10] = "Artic Fox",
+        [11] = "Camel",
+        [12] = "Sand Cat",
+        [13] = "Death Cow",
+        [14] = "Seagull",
+        [15] = "Scuba Puppy",
+        [16] = "Rocky",
+        [17] = "Cloud Puppy",
+        [18] = "Cloudy",
+        [19] = "Fish",
+        [20] = "Dark Guinea Pig"
+        }
+    end
+    else
+        getgenv().BLC = false
+        BlacklistedPets = {}
+    end
+end)
+
+Section:NewToggle("Blacklist Common And Uncommon", "Blacklists Common And Uncommon Tier Pets", function(state)
+    if state then
+        getgenv().BLUNC = true
+        if getgenv().BLC then
+            state = false
+        else
+            BlacklistedPets = {
+        [1] = "Cat",
+        [2] = "Puppy",
+        [3] = "Bunny",
+        [4] = "Horse",
+        [5] = "Squirrel",
+        [6] = "Giraffe",
+        [7] = "Mouse",
+        [8] = "Bee",
+        [9] = "Mushroom",
+        [10] = "Artic Fox",
+        [11] = "Camel",
+        [12] = "Sand Cat",
+        [13] = "Death Cow",
+        [14] = "Seagull",
+        [15] = "Scuba Puppy",
+        [16] = "Rocky",
+        [17] = "Cloud Puppy",
+        [18] = "Cloudy",
+        [19] = "Fish",
+        [20] = "Dark Guinea Pig",
+        [21] = "Pig",
+        [22] = "Floppa",
+        [23] = "Raccoon",
+        [24] = "Guinea Pig",
+        [25] = "Boar",
+        [26] = "Leopard",
+        [27] = "Bird",
+        [28] = "Wasp",
+        [29] = "Swamp Prince",
+        [30] = "Snowman",
+        [31] = "Panther",
+        [32] = "Death Cat",
+        [33] = "Crab",
+        [34] = "Miner Cat",
+        [35] = "Cotton Bat",
+        [36] = "Axolotl",
+        [37] = "Dark Pegasus"
+        }
+    end
+    else
+        getgenv().BLUNC = false
+        BlacklistedPets = {}
+    end
 end)
 
 Section:NewToggle("Auto Egg", "Opens Eggs for you", function(state)
@@ -93,6 +182,7 @@ Section:NewToggle("Auto Egg", "Opens Eggs for you", function(state)
     end
 end)
 
+local Section = Tab:NewSection("Coords")
 
 Section:NewButton("Print Coords", "Prints your coords in F9", function()
     local currentPosition = getPlayerPOS()
